@@ -60,7 +60,7 @@ jobs:
       - 
         name: Test-run x86_64 image
         run: |
-          docker run --rm sparrow-server:amd64 &
+          docker run --rm -dit sparrow-server:amd64 &
           PID=$!
           sleep 5
           kill -SIGINT $PID # this will return a non-zero exit code if the container dies early on
