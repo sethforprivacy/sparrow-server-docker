@@ -9,8 +9,7 @@ ARG PGP_SIG=E94618334C674B40
 RUN apt-get update \
     && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends curl \
-    gpg \
-    gpg-agent \
+    gnupg \
     wget \
     ca-certificates \
     && apt-get clean \
