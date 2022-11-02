@@ -28,9 +28,9 @@ RUN case ${TARGETARCH:-amd64} in \
     esac \
     # Download Sparrow Server binaries and verification assets
     && wget --quiet https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-server-${SPARROW_VERSION}-${SPARROW_ARCH}.tar.gz \
-    && wget --quiet https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-${SPARROW_VERSION}-manifest.txt \
-    && wget --quiet https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-${SPARROW_VERSION}-manifest.txt.asc \
-    && wget --quiet https://keybase.io/craigraw/pgp_keys.asc \
+                    https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-${SPARROW_VERSION}-manifest.txt \
+                    https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-${SPARROW_VERSION}-manifest.txt.asc \
+                    https://keybase.io/craigraw/pgp_keys.asc \
     # GPG verify, sha256sum verify, and unpack Sparrow Server binaries
     && gpg --import pgp_keys.asc \
     && gpg --status-fd 1 --verify sparrow-${SPARROW_VERSION}-manifest.txt.asc \
