@@ -1,8 +1,7 @@
 # Define Ubuntu 22.04 LTS as base image
 FROM ubuntu:22.04
 
-# Set Sparrow version and expected PGP signature
-ARG SPARROW_VERSION=1.7.3
+# Set the expected PGP signature
 ARG PGP_SIG=E94618334C674B40
 
 # Update all packages and install requirements
@@ -12,6 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends cu
     gnupg \
     wget \
     ca-certificates \
+    jq \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,7 +24,12 @@ RUN case ${TARGETARCH:-amd64} in \
     "arm64") SPARROW_ARCH="aarch64";; \
     "amd64") SPARROW_ARCH="x86_64";; \
     *) echo "Dockerfile does not support this platform"; exit 1 ;; \
-    esac \
+    esac
+
+# Get latest Sparrow version
+RUN LATEST_RELEASE=$(curl --silent https://api.github.com/repos/sparrowwallet/sparrow/releases/latest \
+    | jq --raw-output '.tag_name') \
+    && SPARROW_VERSION="${LATEST_RELEASE/v/}" \
     # Download Sparrow Server binaries and verification assets
     && wget --quiet https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-server-${SPARROW_VERSION}-${SPARROW_ARCH}.tar.gz \
                     https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VERSION}/sparrow-${SPARROW_VERSION}-manifest.txt \
