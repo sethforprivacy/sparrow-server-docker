@@ -49,7 +49,7 @@ jobs:
       - 
         name: Build x86_64 image
         id: docker_build_amd64
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.0
         with:
           push: false
           load: true
@@ -59,7 +59,7 @@ jobs:
           cache-to: type=inline
       - 
         name: Build and push to Docker Hub and GitHub Packages Docker Registry
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.0
         id: docker_build_push
         with:
           push: true
