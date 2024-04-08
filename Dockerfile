@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 # Set Sparrow version and expected PGP signature
-ARG SPARROW_VERSION=1.8.2
+ARG SPARROW_VERSION=1.8.4
 ARG PGP_SIG=E94618334C674B40
 
 # Update all packages and install requirements
